@@ -30,47 +30,67 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-- [sfdx-codescan-plugin](#sfdx-codescan-plugin)
-  - [`sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-helloorg--n-string--f--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfatalTRACEDEBUGINFOWARNERRORFATAL)
-- [Debugging your plugin](#Debugging-your-plugin)
+* [`sfdx codescan:run [name=value...] [-s <string>] [-o <string>] [-k <string>] [-t <string>] [-u <string>] [-p <string>] [--noqualitygate] [--javahome <string>] [--nofail] [--qgtimeout <integer>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-codescanrun-namevalue--s-string--o-string--k-string--t-string--u-string--p-string---noqualitygate---javahome-string---nofail---qgtimeout-integer---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx codescan:run [name=value...] [-s <string>] [-o <string>] [-k <string>] [-t <string>] [-u <string>] [-p <string>] [--noqualitygate] [--javahome <string>] [--nofail] [--qgtimeout <integer>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
-print a greeting and your org IDs
+runs a SonarQube analysis
 
 ```
 USAGE
-  $ sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  $ sfdx codescan:run [name=value...] [-s <string>] [-o <string>] [-k <string>] [-t <string>] [-u <string>] [-p 
+  <string>] [--noqualitygate] [--javahome <string>] [--nofail] [--qgtimeout <integer>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
-  -f, --force                                                                       example boolean flag
-  -n, --name=name                                                                   name to print
+  -k, --projectkey=projectkey                                                       sonar.projectKey - the project key
+                                                                                    to create
 
-  -u, --targetusername=targetusername                                               username or alias for the target
-                                                                                    org; overrides default target org
+  -o, --organization=organization                                                   CodeScan Organization Id. Only
+                                                                                    required when connecting to CodeScan
+                                                                                    Cloud
 
-  -v, --targetdevhubusername=targetdevhubusername                                   username or alias for the dev hub
-                                                                                    org; overrides default dev hub org
+  -p, --password=password                                                           SonarQube password (token is
+                                                                                    preferred)
 
-  --apiversion=apiversion                                                           override the api version used for
-                                                                                    api requests made by this command
+  -s, --server=server                                                               SonarQube server. Defaults to
+                                                                                    CodeScan Cloud
+                                                                                    (https://app.codescan.io)
+
+  -t, --token=token                                                                 SonarQube token (preferred)
+
+  -u, --username=username                                                           SonarQube username (token is
+                                                                                    preferred)
+
+  --javahome=javahome                                                               JAVA_HOME to use
 
   --json                                                                            format output as json
 
   --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
                                                                                     this command invocation
 
+  --nofail                                                                          Don't fail if sonar-scanner fails
+
+  --noqualitygate                                                                   Don't wait until the SonarQube
+                                                                                    background task is finished and
+                                                                                    return the build Quality Gate
+
+  --qgtimeout=qgtimeout                                                             Timeout in seconds to wait for
+                                                                                    Quality Gate to complete (default
+                                                                                    300)
+
 EXAMPLES
-  $ sfdx hello:org --targetusername myOrg@example.com --targetdevhubusername devhub@org.com
-     Hello world! This is org: MyOrg and I will be around until Tue Mar 20 2018!
-     My hub org id is: 00Dxx000000001234
+  $ sfdx codescan:run --token <token> --projectkey my-project-key --organization my-org-key
   
-  $ sfdx hello:org --name myname --targetusername myOrg@example.com
-     Hello myname! This is org: MyOrg and I will be around until Tue Mar 20 2018!
+  $ sfdx codescan:run --token <token> --projectkey my-project-key --organization my-org-key -Dsonar.verbose=true
+       -D can be used for passing any sonar-scanner definition
+       -X will be passed as a jvm arg
+  
+  $ sfdx codescan:run ... -X
+       Verbose output
 ```
 
-_See code: [src/commands/hello/org.ts](https://github.com/VillageChief/sfdx-codescan-plugin/blob/v1.0.0/src/commands/hello/org.ts)_
+_See code: [src/commands/codescan/run.ts](https://github.com/VillageChief/sfdx-codescan-plugin/blob/v1.0.0/src/commands/codescan/run.ts)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
