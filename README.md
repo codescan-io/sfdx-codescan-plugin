@@ -22,7 +22,7 @@ $ npm install -g sfdx-codescan-plugin
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-sfdx-codescan-plugin/1.0.0 linux-x64 node-v8.11.3
+sfdx-codescan-plugin/1.0.1 linux-x64 node-v8.11.3
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -90,7 +90,7 @@ EXAMPLES
        Verbose output
 ```
 
-_See code: [src/commands/codescan/run.ts](https://github.com/VillageChief/sfdx-codescan-plugin/blob/v1.0.0/src/commands/codescan/run.ts)_
+_See code: [src/commands/codescan/run.ts](https://github.com/VillageChief/sfdx-codescan-plugin/blob/v1.0.1/src/commands/codescan/run.ts)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin

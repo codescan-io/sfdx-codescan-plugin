@@ -190,7 +190,7 @@ export default class Run extends SfdxCommand {
   private getQualityGate(_this, sonarWorkingDir) {
     const qgtimeout = _this.flags.qgtimeout ? parseInt(_this.flags.qgtimeout, 10) : 300;
     const end = new Date().getTime() + (qgtimeout * 1000);
-    const auth = _this.flags.token ? {user: _this.flags.token} : (_this.flags.username && _this.flags.password ? {user: _this.flags.username, pass: _this.flags.password} : {})
+    const auth = _this.flags.token ? {user: _this.flags.token} : (_this.flags.username && _this.flags.password ? {user: _this.flags.username, pass: _this.flags.password} : {});
     return new Promise((resolve, reject) => {
       pollQualityGate(auth, end, sonarWorkingDir, 2000, resolve, reject);
     });
@@ -220,7 +220,7 @@ export default class Run extends SfdxCommand {
 
     const sonarScannerPath = Path.join(this.codescanPath, 'sonar-scanner-' + Run.SONAR_SCANNER_VERSION + '/lib/sonar-scanner-cli-' + Run.SONAR_SCANNER_VERSION + '.jar');
     if (!fs.existsSync(sonarScannerPath)) {
-      const unzip = require('unzip2');
+      const unzip = require('node-unzip-2');
       this.ux.startSpinner('Downloading sonar-scanner...');
       return new Promise((resolve, reject) => {
         request(scannerUrl)
