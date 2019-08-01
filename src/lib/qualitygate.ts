@@ -63,14 +63,14 @@ function getQualityGateUrl(sonarWorkingDir, ceTask) {
   return null;
 }
 
-export function pollQualityGate(end, sonarWorkingDir, interval, resolve, reject) {
+export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, reject) {
   const url = getCeTaskUrl(sonarWorkingDir);
   if (!url) {
     reject('ceTaskUrl not found');
   }
   poll(() => {
     return new Promise((_resolve, _reject) => {
-      request(url, (error, response, body) => {
+      request({url, auth}, (error, response, body) => {
           if (error) {
             return _reject(error);
           }
@@ -92,7 +92,7 @@ export function pollQualityGate(end, sonarWorkingDir, interval, resolve, reject)
     }
 
     // fetch quality gate...
-    request(qgurl, (error, response, body) => {
+    request({url: qgurl, auth}, (error, response, body) => {
       if (error) {
         return reject(error);
       }
