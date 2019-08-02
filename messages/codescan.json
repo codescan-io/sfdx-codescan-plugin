@@ -14,9 +14,9 @@
   "nofailFlagDescription": "Don't fail if sonar-scanner fails.",
   "qgtimeoutFlagDescription": "Timeout in seconds to wait for Quality Gate to complete (default 300).",
 
-  "errorTokenAndUserPass": "Only one of token or user+pass should be specified.",
+  "errorTokenAndUserPass": "Only one of token or username+password should be specified.",
   "errorOnlyUserOrPass": "Username and password must be specified.",
-  "errorNoOrganization": "Organization must be specified",
+  "errorNoOrganization": "Organization must be specified.",
   "errorInvalidServerUrl": "Server must be a valid URL.",
   "errorSonarScannerPathDoestExist": "Sonar-scanner extraction failed: %s"
 }

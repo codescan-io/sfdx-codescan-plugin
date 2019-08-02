@@ -8,7 +8,7 @@ Run CodeScan or SonarQube jobs from sfdx
 [![License](https://img.shields.io/npm/l/sfdx-codescan-plugin.svg)](https://github.com/VillageChief/sfdx-codescan-plugin/blob/master/package.json)
 
 ## Install
-To install the plugin use `sfdx plugins:install codescan-sfdx-plugin`.
+To install the plugin use `sfdx plugins:install sfdx-codescan-plugin`.
 You'll be prompted that this plugin is not signed by Salesforce, type `y` to continue.
 Check the installation using `sfdx plugins`.
 
