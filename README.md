@@ -4,11 +4,6 @@ sfdx-codescan-plugin
 Run CodeScan or SonarQube jobs from sfdx
 
 [![Version](https://img.shields.io/npm/v/sfdx-codescan-plugin.svg)](https://npmjs.org/package/sfdx-codescan-plugin)
-[![CircleCI](https://circleci.com/gh/VillageChief/sfdx-codescan-plugin/tree/master.svg?style=shield)](https://circleci.com/gh/VillageChief/sfdx-codescan-plugin/tree/master)
-[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/VillageChief/sfdx-codescan-plugin?branch=master&svg=true)](https://ci.appveyor.com/project/heroku/sfdx-codescan-plugin/branch/master)
-[![Codecov](https://codecov.io/gh/VillageChief/sfdx-codescan-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/VillageChief/sfdx-codescan-plugin)
-[![Greenkeeper](https://badges.greenkeeper.io/VillageChief/sfdx-codescan-plugin.svg)](https://greenkeeper.io/)
-[![Known Vulnerabilities](https://snyk.io/test/github/VillageChief/sfdx-codescan-plugin/badge.svg)](https://snyk.io/test/github/VillageChief/sfdx-codescan-plugin)
 [![Downloads/week](https://img.shields.io/npm/dw/sfdx-codescan-plugin.svg)](https://npmjs.org/package/sfdx-codescan-plugin)
 [![License](https://img.shields.io/npm/l/sfdx-codescan-plugin.svg)](https://github.com/VillageChief/sfdx-codescan-plugin/blob/master/package.json)
 
@@ -17,8 +12,8 @@ To install the plugin use `sfdx plugins:install codescan-sfdx-plugin`.
 You'll be prompted that this plugin is not signed by Salesforce, type `y` to continue.
 Check the installation using `sfdx plugins`.
 
-##Docs
-Use `sfdx help codescan:run` to view a list of parameters and flags.
+## Docs
+Use `sfdx help codescan:run` to view a list of parameters and flags.  
 
 
 ## Usage
@@ -64,7 +59,7 @@ OPTIONS
                                                                                     Quality Gate to complete (default
                                                                                     300)
 ```
-##Examples
+## Examples
 ```
   $ sfdx codescan:run --token <token> --projectkey my-project-key --organization my-org-key
   
