@@ -12,26 +12,17 @@ Run CodeScan or SonarQube jobs from sfdx
 [![Downloads/week](https://img.shields.io/npm/dw/sfdx-codescan-plugin.svg)](https://npmjs.org/package/sfdx-codescan-plugin)
 [![License](https://img.shields.io/npm/l/sfdx-codescan-plugin.svg)](https://github.com/VillageChief/sfdx-codescan-plugin/blob/master/package.json)
 
+## Install
+To install the plugin use `sfdx plugins:install codescan-sfdx-plugin`.
+You'll be prompted that this plugin is not signed by Salesforce, type `y` to continue.
+Check the installation using `sfdx plugins`.
 
-```sh-session
-$ npm install -g sfdx-codescan-plugin
-$ sfdx COMMAND
-running command...
-$ sfdx (-v|--version|version)
-sfdx-codescan-plugin/1.0.0 linux-x64 node-v8.11.3
-$ sfdx --help [COMMAND]
-USAGE
-  $ sfdx COMMAND
-...
+##Docs
+Use `sfdx help codescan:run` to view a list of parameters and flags.
+
+
+## Usage
 ```
-<!-- usagestop -->
-<!-- commands -->
-[`sfdx codescan:run [name=value...] [-s <string>] [-o <string>] [-k <string>] [-t <string>] [-u <string>] [-p <string>] [--noqualitygate] [--javahome <string>] [--nofail] [--qgtimeout <integer>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-codescanrun-namevalue--s-string--o-string--k-string--t-string--u-string--p-string---noqualitygate---javahome-string---nofail---qgtimeout-integer---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-
-runs a SonarQube analysis
-
-```
-USAGE
   $ sfdx codescan:run [name=value...] [-s <string>] [-o <string>] [-k <string>] [-t <string>] [-u <string>] [-p 
   <string>] [--noqualitygate] [--javahome <string>] [--nofail] [--qgtimeout <integer>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
@@ -72,8 +63,9 @@ OPTIONS
   --qgtimeout=qgtimeout                                                             Timeout in seconds to wait for
                                                                                     Quality Gate to complete (default
                                                                                     300)
-
-EXAMPLES
+```
+##Examples
+```
   $ sfdx codescan:run --token <token> --projectkey my-project-key --organization my-org-key
   
   $ sfdx codescan:run --token <token> --projectkey my-project-key --organization my-org-key -Dsonar.verbose=true
@@ -84,4 +76,3 @@ EXAMPLES
        Verbose output
 ```
 
-_See code: [src/commands/codescan/run.ts](https://github.com/VillageChief/sfdx-codescan-plugin/blob/v1.0.0/src/commands/codescan/run.ts)_
