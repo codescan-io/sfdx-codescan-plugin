@@ -24,7 +24,7 @@ Use `sfdx help codescan:run` to view a list of parameters and flags.
 
 OPTIONS
   -k, --projectkey=projectkey                                                       sonar.projectKey - the project key
-                                                                                    to create
+                                                                                    to create.
 
   -o, --organization=organization                                                   CodeScan Organization Id. Only
                                                                                     required when connecting to CodeScan
