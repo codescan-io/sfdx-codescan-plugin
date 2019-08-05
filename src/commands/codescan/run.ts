@@ -155,12 +155,15 @@ export default class Run extends SfdxCommand {
           .catch(error => {
             _this.ux.stopSpinner();
             if (_this.flags.nofail) {
-              return resolve({code: 0, qualitygate: _this.printQualityGate(error)['qualitygate']});
+              return resolve({code: 0, error});
             } else {
               return reject(error);
             }
           })
           .then(ret => {
+            if (!ret) {
+              return;
+            }
             _this.ux.stopSpinner();
             resolve({code, qualitygate: _this.printQualityGate(ret)});
           });
