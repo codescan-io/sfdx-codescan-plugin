@@ -187,6 +187,7 @@ export default class Run extends SfdxCommand {
       this.ux.log(chalk.green('Quality Gate passed'));
     } else {
       this.ux.error(chalk.red('Quality Gate failed'));
+      this.ux.error(chalk.red('See more details on the dashboard URL above'));
     }
     return qualitygate;
   }
