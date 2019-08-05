@@ -67,7 +67,7 @@ export default class Run extends SfdxCommand {
       // skip
     } else if (!this.flags.server) {
       this.flags.server = 'https://app.codescan.io';
-    } else if (!this.flags.server.startsWith('http://') && !this.flags.server.startsWith('https://')) {
+    } else if (!this.flags.server.match(/https?:\/\/[A-Za-z0-9\-_]+(\..+|:[0-9]+\/*.*|\/.*)/)) {
       throw new SfdxError(messages.getMessage('errorInvalidServerUrl'));
     }
     if (this.flags.server && this.flags.server.endsWith('codescan.io') && !this.flags.organization) {
@@ -155,12 +155,15 @@ export default class Run extends SfdxCommand {
           .catch(error => {
             _this.ux.stopSpinner();
             if (_this.flags.nofail) {
-              return resolve({code: 0, qualitygate: _this.printQualityGate(error)['qualitygate']});
+              return resolve({code: 0, error});
             } else {
               return reject(error);
             }
           })
           .then(ret => {
+            if (!ret) {
+              return;
+            }
             _this.ux.stopSpinner();
             resolve({code, qualitygate: _this.printQualityGate(ret)});
           });
@@ -184,6 +187,7 @@ export default class Run extends SfdxCommand {
       this.ux.log(chalk.green('Quality Gate passed'));
     } else {
       this.ux.error(chalk.red('Quality Gate failed'));
+      this.ux.error(chalk.red('See more details on the dashboard URL above'));
     }
     return qualitygate;
   }

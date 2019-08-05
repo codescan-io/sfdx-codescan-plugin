@@ -16,12 +16,12 @@ function poll(pollFn, interval = 100) {
               reject(e);
             }
             if (passesCondition) {
-              resolve(data);
               clearInterval(intervalHandle);
+              resolve(data);
             }
           }).catch(err => {
-            reject(err);
             clearInterval(intervalHandle);
+            reject(err);
           });
         }, interval);
       });
@@ -67,7 +67,9 @@ export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, r
   const url = getCeTaskUrl(sonarWorkingDir);
   if (!url) {
     reject('ceTaskUrl not found');
+    return;
   }
+
   poll(() => {
     return new Promise((_resolve, _reject) => {
       request({url, auth}, (error, response, body) => {
@@ -86,22 +88,26 @@ export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, r
     return (data.status !== 'IN_PROGRESS' && data.status !== 'PENDING') || new Date().getTime() >= end;
   })
   .then(ceTask => {
-    const qgurl = getQualityGateUrl(sonarWorkingDir, ceTask);
-    if (!qgurl) {
-      reject('qualityGate url not found');
+    if (ceTask['status'] === 'IN_PROGRESS' || ceTask['status'] === 'PENDING') {
+      reject('Quality Gate Timeout');
+    } else {
+      const qgurl = getQualityGateUrl(sonarWorkingDir, ceTask);
+      if (!qgurl) {
+        reject('qualityGate url not found');
+      } else {
+        // fetch quality gate...
+        request({url: qgurl, auth}, (error, response, body) => {
+          if (error) {
+            return reject(error);
+          }
+          const json = JSON.parse(body);
+          if (json.errors) {
+            reject(json.errors[0].msg);
+          }
+          resolve(json.projectStatus);
+        });
+      }
     }
-
-    // fetch quality gate...
-    request({url: qgurl, auth}, (error, response, body) => {
-      if (error) {
-        return reject(error);
-      }
-      const json = JSON.parse(body);
-      if (json.errors) {
-        reject(json.errors[0].msg);
-      }
-      resolve(json.projectStatus);
-    });
   })
   .catch(reject);
 }
