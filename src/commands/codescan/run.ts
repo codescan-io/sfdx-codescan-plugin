@@ -165,7 +165,7 @@ export default class Run extends SfdxCommand {
               return;
             }
             _this.ux.stopSpinner();
-            resolve({code, qualitygate: _this.printQualityGate(ret)});
+            return _this.printQualityGate(ret, nofail, resolve, reject);
           });
         } else if (code === 0 || nofail) {
           resolve({code});
@@ -181,15 +181,18 @@ export default class Run extends SfdxCommand {
     return {};
   }
 
-  private printQualityGate(qualitygate) {
+  private printQualityGate(qualitygate, nofail, resolve, reject) {
     const chalk = require('chalk');
+    let code = 0;
     if (qualitygate['status'] === 'OK') {
       this.ux.log(chalk.green('Quality Gate passed'));
     } else {
       this.ux.error(chalk.red('Quality Gate failed'));
       this.ux.error(chalk.red('See more details on the dashboard URL above'));
+      code = 1;
+      if (!nofail) return reject('Quality Gate failed');
     }
-    return qualitygate;
+    return resolve({code, qualitygate});
   }
   private getQualityGate(_this, sonarWorkingDir) {
     const qgtimeout = _this.flags.qgtimeout ? parseInt(_this.flags.qgtimeout, 10) : 300;
