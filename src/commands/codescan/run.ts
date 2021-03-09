@@ -214,7 +214,6 @@ export default class Run extends SfdxCommand {
   }
 
   private resolveSonarScanner() {
-    const scannerUrl = Run.scannerUrl.replace('SONAR_SCANNER_VERSION', Run.SONAR_SCANNER_VERSION);
 
     // create parent dirs
     if (!fs.existsSync(Path.normalize('.sfdx/'))) {
@@ -225,25 +224,19 @@ export default class Run extends SfdxCommand {
       fs.mkdirSync(this.codescanPath);
     }
 
+    // copy sonar scanner from assets folder
+    const copydir = require('copy-dir');
+
+    this.ux.log('Copying sonar scanner binaries...');
+
+    copydir.sync('./../../../assets', '.sfdx/codescan', {
+      utimes: true,  // keep add time and modify time
+      mode: true,    // keep file mode
+      cover: true    // cover file when exists, default is true
+    });
+    
+
     const sonarScannerPath = Path.join(this.codescanPath, 'sonar-scanner-' + Run.SONAR_SCANNER_VERSION + '/lib/sonar-scanner-cli-' + Run.SONAR_SCANNER_VERSION + '.jar');
-    if (!fs.existsSync(sonarScannerPath)) {
-      const unzip = require('node-unzip-2');
-      this.ux.startSpinner('Downloading sonar-scanner...');
-      return new Promise((resolve, reject) => {
-        request(scannerUrl)
-        .on('error', () => {
-          this.ux.stopSpinner('Failed to download ' + scannerUrl);
-          reject('Failed to download ' + scannerUrl);
-        })
-        .pipe(unzip.Extract({ path: this.codescanPath}).on('close', () => {
-          this.ux.stopSpinner();
-          if (!fs.existsSync(sonarScannerPath)) {
-            throw new SfdxError(messages.getMessage('errorSonarScannerPathDoestExist', [sonarScannerPath]));
-          }
-          resolve(sonarScannerPath);
-        }));
-      });
-    }
 
     return sonarScannerPath;
   }
