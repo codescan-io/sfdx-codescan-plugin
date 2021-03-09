@@ -227,14 +227,16 @@ export default class Run extends SfdxCommand {
     // copy sonar scanner from assets folder
     const copydir = require('copy-dir');
 
-    this.ux.log('Copying sonar scanner binaries...');
+    const sonarScannerSourcePath = Path.normalize(__dirname + '../../../../assets');
 
-    copydir.sync('./../../../assets', '.sfdx/codescan', {
+    this.ux.log(`Copying sonar scanner binaries from [${sonarScannerSourcePath}]...`);
+
+    copydir.sync(sonarScannerSourcePath, '.sfdx/codescan', {
       utimes: true,  // keep add time and modify time
       mode: true,    // keep file mode
       cover: true    // cover file when exists, default is true
     });
-    
+
 
     const sonarScannerPath = Path.join(this.codescanPath, 'sonar-scanner-' + Run.SONAR_SCANNER_VERSION + '/lib/sonar-scanner-cli-' + Run.SONAR_SCANNER_VERSION + '.jar');
 
