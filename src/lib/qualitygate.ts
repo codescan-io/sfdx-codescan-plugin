@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as Path from 'path';
-import * as request from 'request';
+const request = require('request');
 
 function poll(pollFn, interval = 100) {
   let intervalHandle = null;

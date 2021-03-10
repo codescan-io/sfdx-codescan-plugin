@@ -2,8 +2,6 @@
 'use strict';
 
 import * as cp from 'child_process';
-import * as expandHomeDir from 'expand-home-dir';
-import * as findJavaHome from 'find-java-home';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -42,7 +40,7 @@ function checkJavaRuntime(javaHome: string): Promise<string> {
             }
         }
         if (javaHome) {
-            javaHome = expandHomeDir(javaHome);
+            javaHome = require('expand-home-dir')(javaHome);
             if (!fs.existsSync(javaHome)) {
                 openJDKDownload(reject, source + ' points to a missing folder');
             }
@@ -52,7 +50,7 @@ function checkJavaRuntime(javaHome: string): Promise<string> {
             return resolve(javaHome);
         }
         // No settings, let's try to detect as last resort.
-        findJavaHome((err, home) => {
+        require('find-java-home')((err, home) => {
             if (err) {
                 openJDKDownload(reject, 'Java runtime could not be located');
             } else {
