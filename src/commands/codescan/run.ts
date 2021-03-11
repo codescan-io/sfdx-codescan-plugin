@@ -235,7 +235,7 @@ export default class Run extends SfdxCommand {
           this.ux.stopSpinner('Failed to download ' + scannerUrl);
           reject('Failed to download ' + scannerUrl);
         })
-        .pipe(unzip.Extract({ path: this.codescanPath}).on('close', () => {
+        .pipe(unzip.Extract({ path: this.codescanPath}).on('finish', () => {
           this.ux.stopSpinner();
           if (!fs.existsSync(sonarScannerPath)) {
             throw new SfdxError(messages.getMessage('errorSonarScannerPathDoestExist', [sonarScannerPath]));
