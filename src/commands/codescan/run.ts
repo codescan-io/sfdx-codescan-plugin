@@ -139,6 +139,8 @@ export default class Run extends SfdxCommand {
     args = args.concat(varargs);
 
     // spawn scanner
+    this.ux.log(`\nRunning command \n[${command}] \nwith arguments \n${args.join('\n')}\n`);
+
     const cmd = spawn(command, args);
     cmd.stdout.pipe(process.stdout);
     cmd.stderr.pipe(process.stderr);
