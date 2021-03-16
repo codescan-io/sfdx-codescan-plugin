@@ -24,7 +24,7 @@ export default class Run extends SfdxCommand {
   `,
   `$ sfdx codescan:run --token <token> --projectkey my-project-key --organization my-org-key -Dsonar.verbose=true
     -D can be used for passing any sonar-scanner definition
-    -X will be passed as a jvm arg
+    -J will be passed as a jvm arg
   `,
   `$ sfdx codescan:run ... -X
     Verbose output`
@@ -74,11 +74,10 @@ export default class Run extends SfdxCommand {
       throw new SfdxError(messages.getMessage('errorNoOrganization'));
     }
 
-    // put -X vm args at front...
+    // put -J vm args at front...
     for ( const x in varargs) {
-      if (varargs[x].startsWith('-X') && varargs[x] !== '-X') {
-        args.push(varargs[x]);
-        varargs.splice(parseInt(x, 10), 1);
+      if (varargs[x].startsWith('-J')) {
+        args.push(varargs[x].substring(2));
       }
     }
 
@@ -136,7 +135,11 @@ export default class Run extends SfdxCommand {
     }
 
     // add rest of varargs
-    args = args.concat(varargs);
+    for ( const x in varargs) {
+      if (!varargs[x].startsWith('-J')) {
+        args.push(varargs[x]);
+      }
+    }
 
     // spawn scanner
     this.ux.log(`\nRunning command \n[${command}] \nwith arguments \n${args.join('\n')}\n`);
