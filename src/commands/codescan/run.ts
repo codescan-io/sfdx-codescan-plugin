@@ -238,9 +238,7 @@ export default class Run extends SfdxCommand {
     });
 
 
-    const sonarScannerPath = Path.join(this.codescanPath, 'sonar-scanner-' + Run.SONAR_SCANNER_VERSION + '/lib/sonar-scanner-cli-' + Run.SONAR_SCANNER_VERSION + '.jar');
-
-    return sonarScannerPath;
+    return Path.join(this.codescanPath, 'sonar-scanner-' + Run.SONAR_SCANNER_VERSION + '/lib/sonar-scanner-cli-' + Run.SONAR_SCANNER_VERSION + '.jar');
   }
 
   private contains(arr, prefix) {
