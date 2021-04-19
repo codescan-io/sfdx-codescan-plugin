@@ -3,7 +3,7 @@
   "description": "Run CodeScan or SonarQube jobs from sfdx",
   "version": "1.0.7",
   "author": "Ben van Klinken @ustramooner",
-  "bugs": "https://github.com/omazhar/sfdx-codescan-plugin/issues",
+  "bugs": "https://github.com/VillageChief/sfdx-codescan-plugin/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -42,7 +42,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/omazhar/sfdx-codescan-plugin",
+  "homepage": "https://github.com/VillageChief/sfdx-codescan-plugin",
   "keywords": [
     "sfdx-plugin"
   ],
@@ -59,7 +59,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "omazhar/sfdx-codescan-plugin",
+  "repository": "VillageChief/sfdx-codescan-plugin",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -p test -t stylish",
