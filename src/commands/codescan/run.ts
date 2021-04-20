@@ -4,7 +4,6 @@ import { AnyJson, JsonMap } from '@salesforce/ts-types';
 import {spawn} from 'child_process';
 import * as fs from 'fs';
 import * as Path from 'path';
-import * as request from 'request';
 import {pollQualityGate} from '../../lib/qualitygate';
 import {resolveRequirements} from '../../lib/requirements';
 
@@ -53,7 +52,6 @@ export default class Run extends SfdxCommand {
   };
 
   private static SONAR_SCANNER_VERSION = '3.3.0.1492';
-  private static scannerUrl = 'https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-SONAR_SCANNER_VERSION.zip';
 
   protected varargValues = [];
   protected codescanPath = null;
