@@ -17,7 +17,7 @@
     "tslib": "^1"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1",
+    "@oclif/dev-cli": "^1.26.10",
     "@oclif/plugin-help": "^3.3.1",
     "@oclif/test": "^1",
     "@salesforce/dev-config": "1.4.1",
