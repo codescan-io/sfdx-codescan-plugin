@@ -14,7 +14,6 @@
     "expand-home-dir": "0.0.3",
     "find-java-home": "^0.2.0",
     "node-unzip-2": "^0.2.8",
-    "sfdx-codescan-plugin": "^1.0.8",
     "tslib": "^1"
   },
   "devDependencies": {
