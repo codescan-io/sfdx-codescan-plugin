@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as Path from 'path';
-const request = require('request');
+import axios from 'axios';
 
 function poll(pollFn, interval = 100) {
   let intervalHandle = null;
@@ -72,16 +72,15 @@ export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, r
 
   poll(() => {
     return new Promise((_resolve, _reject) => {
-      request({url, auth}, (error, response, body) => {
-          if (error) {
-            return _reject(error);
+      axios.get(url, { auth })
+        .then(response => {
+          const data = response.data;
+          if (data.errors) {
+            _reject(data.errors[0].msg);
           }
-          const json = JSON.parse(body);
-          if (json.errors) {
-            _reject(json.errors[0].msg);
-          }
-          _resolve(json.task);
-      });
+          _resolve(data.task);
+        })
+        .catch(error => _reject(error));
     });
   }, interval)
   .until(data => {
@@ -96,16 +95,15 @@ export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, r
         reject('qualityGate url not found');
       } else {
         // fetch quality gate...
-        request({url: qgurl, auth}, (error, response, body) => {
-          if (error) {
-            return reject(error);
-          }
-          const json = JSON.parse(body);
-          if (json.errors) {
-            reject(json.errors[0].msg);
-          }
-          resolve(json.projectStatus);
-        });
+        axios.get(qgurl, { auth })
+          .then(response => {
+            const data = response.data;
+            if (data.errors) {
+              reject(data.errors[0].msg);
+            }
+            resolve(data.projectStatus);
+          })
+          .catch(error => reject(error));
       }
     }
   })

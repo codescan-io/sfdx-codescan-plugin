@@ -1,5 +1,5 @@
 import { flags, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxError } from '@salesforce/core';
+import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, JsonMap } from '@salesforce/ts-types';
 import {spawn} from 'child_process';
 import * as fs from 'fs';
@@ -51,7 +51,7 @@ export default class Run extends SfdxCommand {
     qgtimeout: flags.integer({description: messages.getMessage('qgtimeoutFlagDescription')})
   };
 
-  private static SONAR_SCANNER_VERSION = '3.3.0.1492';
+  private static SONAR_SCANNER_VERSION = '5.0.1.3006';
 
   protected varargValues = [];
   protected codescanPath = null;
@@ -66,10 +66,10 @@ export default class Run extends SfdxCommand {
     } else if (!this.flags.server) {
       this.flags.server = 'https://app.codescan.io';
     } else if (!this.flags.server.match(/https?:\/\/[A-Za-z0-9\-_]+(\..+|:[0-9]+\/*.*|\/.*)/)) {
-      throw new SfdxError(messages.getMessage('errorInvalidServerUrl'));
+      throw new SfError(messages.getMessage('errorInvalidServerUrl'));
     }
     if (this.flags.server && this.flags.server.endsWith('codescan.io') && !this.flags.organization) {
-      throw new SfdxError(messages.getMessage('errorNoOrganization'));
+      throw new SfError(messages.getMessage('errorNoOrganization'));
     }
 
     // put -J vm args at front...
@@ -86,13 +86,13 @@ export default class Run extends SfdxCommand {
     // server
     if (this.flags.server) {
       if (this.contains(varargs, '-Dsonar.host.url')) {
-        throw new SfdxError(messages.getMessage('errorDuplicateValues', ['server']));
+        throw new SfError(messages.getMessage('errorDuplicateValues', ['server']));
       }
       args.push('-Dsonar.host.url=' + this.flags.server );
     }
     if (this.flags.organization) {
       if (this.contains(varargs, '-Dsonar.organization')) {
-        throw new SfdxError(messages.getMessage('errorDuplicateValues', ['organization']));
+        throw new SfError(messages.getMessage('errorDuplicateValues', ['organization']));
       }
       args.push( '-Dsonar.organization=' + this.flags.organization );
     }
@@ -100,25 +100,25 @@ export default class Run extends SfdxCommand {
     // authentication
     if (this.contains(varargs, '-Dsonar.login') || this.contains(varargs, '-Dsonar.password')) {
       if (this.flags.token || this.flags.username && this.flags.password) {
-        throw new SfdxError(messages.getMessage('errorDuplicateValues', ['token/username/password']));
+        throw new SfError(messages.getMessage('errorDuplicateValues', ['token/username/password']));
       }
     } else if (this.flags.token) {
       if (this.flags.username || this.flags.password) {
-        throw new SfdxError(messages.getMessage('errorTokenAndUserPass'));
+        throw new SfError(messages.getMessage('errorTokenAndUserPass'));
       }
       args.push( '-Dsonar.login=' + this.flags.token );
     } else if (this.flags.username && this.flags.password) {
       args.push( '-Dsonar.login=' + this.flags.username );
       args.push( '-Dsonar.password=' + this.flags.password );
     } else if (this.flags.username || this.flags.password) {
-      throw new SfdxError(messages.getMessage('errorOnlyUserOrPass'));
+      throw new SfError(messages.getMessage('errorOnlyUserOrPass'));
     } else {
       this.ux.log('No --token specified. This will probably fail');
     }
 
     if (this.flags.projectkey) {
       if (this.contains(varargs, '-Dsonar.projectKey')) {
-        throw new SfdxError(messages.getMessage('errorDuplicateValues', ['projectkey']));
+        throw new SfError(messages.getMessage('errorDuplicateValues', ['projectkey']));
       }
       args.push('-Dsonar.projectKey=' + this.flags.projectkey);
     }

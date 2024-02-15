@@ -1,8 +1,9 @@
 {
-  "extends": "./node_modules/@salesforce/dev-config/tsconfig",
+  // "extends": "./node_modules/@salesforce/dev-config/tsconfig",
   "compilerOptions": {
     "outDir": "./lib",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "module": "Node16",
   },
   "include": [
     "./src/**/*"
