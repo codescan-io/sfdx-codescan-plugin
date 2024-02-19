@@ -4,6 +4,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "module": "Node16",
+    "skipLibCheck": true
   },
   "include": [
     "./src/**/*"

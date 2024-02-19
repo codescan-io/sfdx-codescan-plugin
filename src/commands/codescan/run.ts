@@ -200,9 +200,9 @@ export default class Run extends SfdxCommand {
   private getQualityGate(_this, sonarWorkingDir) {
     const qgtimeout = _this.flags.qgtimeout ? parseInt(_this.flags.qgtimeout, 10) : 300;
     const end = new Date().getTime() + (qgtimeout * 1000);
-    const auth = _this.flags.token ? {user: _this.flags.token} : (_this.flags.username && _this.flags.password ? {user: _this.flags.username, pass: _this.flags.password} : {});
-    return new Promise((resolve, reject) => {
-      pollQualityGate(auth, end, sonarWorkingDir, 2000, resolve, reject);
+    const auth = _this.flags.token ? _this.flags.token : (_this.flags.username && _this.flags.password ? {user: _this.flags.username, pass: _this.flags.password} : {});
+    return new Promise((resolve, reject) => {``
+      pollQualityGate(auth, end, sonarWorkingDir, 20000, resolve, reject);
     });
   }
 

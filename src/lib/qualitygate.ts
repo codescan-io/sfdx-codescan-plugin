@@ -72,7 +72,7 @@ export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, r
 
   poll(() => {
     return new Promise((_resolve, _reject) => {
-      axios.get(url, { auth })
+      axios.get(url, {headers: {Authorization: `Basic ${btoa(auth+':')}`}})
         .then(response => {
           const data = response.data;
           if (data.errors) {
@@ -95,7 +95,7 @@ export function pollQualityGate(auth, end, sonarWorkingDir, interval, resolve, r
         reject('qualityGate url not found');
       } else {
         // fetch quality gate...
-        axios.get(qgurl, { auth })
+        axios.get(qgurl, {headers: {Authorization: `Basic ${btoa(auth+':')}`}})
           .then(response => {
             const data = response.data;
             if (data.errors) {
