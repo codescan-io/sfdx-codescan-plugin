@@ -202,7 +202,7 @@ export default class Run extends SfdxCommand {
     const end = new Date().getTime() + (qgtimeout * 1000);
     const auth = _this.flags.token ? _this.flags.token : (_this.flags.username && _this.flags.password ? {user: _this.flags.username, pass: _this.flags.password} : {});
     return new Promise((resolve, reject) => {
-      pollQualityGate(auth, end, sonarWorkingDir, 20000, resolve, reject);
+      pollQualityGate(auth, end, sonarWorkingDir, 2000, resolve, reject);
     });
   }
 
