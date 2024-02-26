@@ -30,7 +30,7 @@ sonar_scanner_home=`dirname "$script_path"`/..
 # make it fully qualified
 sonar_scanner_home=`cd "$sonar_scanner_home" && pwd -P`
 
-jar_file=$sonar_scanner_home/lib/sonar-scanner-cli-5.0.1.3006.jar
+jar_file=$sonar_scanner_home/lib/sonar-scanner-cli-5.0.1.3007.jar
 
 # check that sonar_scanner_home has been correctly set
 if [ ! -f "$jar_file" ] ; then
