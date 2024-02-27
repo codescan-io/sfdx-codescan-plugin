@@ -70,7 +70,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "VillageChief/sfdx-codescan-plugin",
+  "repository": "codescan-io/sfdx-codescan-plugin",
   "scripts": {
     "build": "tsc -p .",
     "lint": "eslint src/**/*.ts test/**/*.ts",

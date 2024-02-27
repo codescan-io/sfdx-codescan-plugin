@@ -5,7 +5,7 @@ Run CodeScan or SonarQube jobs from sfdx
 
 [![Version](https://img.shields.io/npm/v/sfdx-codescan-plugin.svg)](https://npmjs.org/package/sfdx-codescan-plugin)
 [![Downloads/week](https://img.shields.io/npm/dw/sfdx-codescan-plugin.svg)](https://npmjs.org/package/sfdx-codescan-plugin)
-[![License](https://img.shields.io/npm/l/sfdx-codescan-plugin.svg)](https://github.com/VillageChief/sfdx-codescan-plugin/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/sfdx-codescan-plugin.svg)](https://github.com/codescan-io/sfdx-codescan-plugin/blob/master/package.json)
 
 ## Install
 To install the plugin use `sfdx plugins:install sfdx-codescan-plugin`.
