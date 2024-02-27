@@ -13,7 +13,8 @@ You'll be prompted that this plugin is not signed by Salesforce, type `y` to con
 Check the installation using `sfdx plugins`.
 
 ## Docs
-Use `sfdx help codescan:run` to view a list of parameters and flags.  
+* Use `sfdx help codescan:run` to view a list of parameters and flags. 
+* Visit [Autorabit Knowledgebase](https://knowledgebase.autorabit.com/product-guides/codescan/codescan-integration/codescan-sfdx-plugin/run-analysis-locally-using-sfdx) for more information.
 
 
 ## Usage
