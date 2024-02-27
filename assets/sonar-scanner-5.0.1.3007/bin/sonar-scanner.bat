@@ -1,10 +1,11 @@
-@REM SonarQube Scanner Startup Script for Windows
+@REM SonarScanner Startup Script for Windows
 @REM
 @REM Required ENV vars:
-@REM   JAVA_HOME - location of a JDK home dir
+@REM   JAVA_HOME - Location of Java's installation, optional if use_embedded_jre is set
 @REM
 @REM Optional ENV vars:
-@REM   SONAR_SCANNER_OPTS - parameters passed to the Java VM when running the SonarQube Scanner
+@REM   SONAR_SCANNER_OPTS - parameters passed to the Java VM when running the SonarScanner
+@REM   SONAR_SCANNER_DEBUG_OPTS - Extra parameters passed to the Java VM for debugging
 
 @echo off
 
@@ -20,7 +21,7 @@ set "SONAR_SCANNER_HOME=%scriptdir%\.."
 @REM ==== START VALIDATION ====
 @REM *** JAVA EXEC VALIDATION ***
 
-set use_embedded_jre=false
+set use_embedded_jre=true
 if "%use_embedded_jre%" == "true" (
   set "JAVA_HOME=%SONAR_SCANNER_HOME%\jre"
 )
@@ -68,7 +69,7 @@ set PROJECT_HOME=%CD%
 @REM remove trailing backslash, see https://groups.google.com/d/msg/sonarqube/wi7u-CyV_tc/3u9UKRmABQAJ
 IF %PROJECT_HOME:~-1% == \ SET PROJECT_HOME=%PROJECT_HOME:~0,-1%
 
-%JAVA_EXEC% -Djava.awt.headless=true %SONAR_SCANNER_DEBUG_OPTS% %SONAR_SCANNER_OPTS% -cp "%SONAR_SCANNER_HOME%\lib\sonar-scanner-cli-3.3.0.1492.jar" "-Dscanner.home=%SONAR_SCANNER_HOME%" "-Dproject.home=%PROJECT_HOME%" org.sonarsource.scanner.cli.Main %*
+%JAVA_EXEC% -Djava.awt.headless=true %SONAR_SCANNER_DEBUG_OPTS% %SONAR_SCANNER_OPTS% -cp "%SONAR_SCANNER_HOME%\lib\sonar-scanner-cli-5.0.1.3007.jar" "-Dscanner.home=%SONAR_SCANNER_HOME%" "-Dproject.home=%PROJECT_HOME%" org.sonarsource.scanner.cli.Main %*
 if ERRORLEVEL 1 goto error
 goto end
 
